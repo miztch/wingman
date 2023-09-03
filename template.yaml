@@ -1,0 +1,90 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: "AWS::Serverless-2016-10-31"
+Description: wingman
+
+Parameters:
+  ScheduleExpression:
+    Description: schedule expression for the eventbridge event
+    Type: String
+    Default: rate(1 day)
+  WebhookUrl:
+    Description: webhook endpoint url for notification
+    Type: String
+  DaysToRetainLogs:
+    Description: days to retain logs in CloudWatch
+    Type: Number
+    Default: 30
+
+Resources:
+  RequestsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: wingman-requests
+      ContentUri: layer/requests/
+      CompatibleRuntimes:
+        - python3.10
+    Metadata:
+      BuildMethod: python3.10
+
+  SelectolaxLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: wingman-selectolax
+      ContentUri: layer/selectolax/
+      CompatibleRuntimes:
+        - python3.10
+    Metadata:
+      BuildMethod: python3.10
+
+  WingmanFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: function/wingman/
+      Description: "scrape vlr.gg upcoming matches"
+      Handler: index.lambda_handler
+      Runtime: python3.10
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 900
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          VLR_EVENTS_TABLE: !Ref VlrEventsTable
+          WEBHOOK_URL: !Ref WebhookUrl
+      Layers:
+        - !Ref RequestsLayer
+        - !Ref SelectolaxLayer
+      Events:
+        CloudWatchEvent:
+          Type: Schedule
+          Properties:
+            Schedule: !Ref ScheduleExpression
+
+  VlrEventsTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties: 
+      AttributeDefinitions: 
+        - AttributeName: id
+          AttributeType: N
+      BillingMode: PROVISIONED
+      DeletionProtectionEnabled: True
+      KeySchema: 
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  WingmanFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${WingmanFunction}
+      RetentionInDays: !Ref DaysToRetainLogs
+
+Outputs:
+  VlrEventsTableName:
+    Description: DynamoDB Table for event list
+    Value: !Ref VlrEventsTable
