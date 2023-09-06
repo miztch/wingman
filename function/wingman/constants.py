@@ -56,5 +56,6 @@ countries = {
     "ua": "Ukraine",
     "us": "United States",
     "vn": "Viet Nam",
+    "eu": "Europe"
     "un": "-",
 }
