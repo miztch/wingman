@@ -25,13 +25,11 @@ jobs:
       - name: Prepare SAM parameters
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          SCHEDULE_EXPRESSION: ${{ vars.SCHEDULE_EXPRESSION }}
           DAYS_TO_RETAIN_LOGS: ${{ vars.DAYS_TO_RETAIN_LOGS }}
         run: |
           tee params.json << EOF
           { 
             "WebhookUrl": "${WEBHOOK_URL}",
-            "ScheduleExpression": "${SCHEDULE_EXPRESSION}",
             "DaysToRetainLogs": "${DAYS_TO_RETAIN_LOGS}"
           }
           EOF
