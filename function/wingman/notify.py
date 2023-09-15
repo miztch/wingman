@@ -9,6 +9,9 @@ logger = log.getLogger()
 
 
 def send(event) -> None:
+    """
+    assemble message body and send to webhook.
+    """
     webhook_url = os.environ["WEBHOOK_URL"]
 
     # region emoji

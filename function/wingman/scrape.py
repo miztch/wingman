@@ -7,7 +7,7 @@ logger = log.getLogger()
 
 def events() -> dict:
     """
-    scrape /events page for upcoming events
+    scrape /events page for upcoming events.
     """
 
     url = "https://www.vlr.gg/events"

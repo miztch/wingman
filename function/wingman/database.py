@@ -39,7 +39,7 @@ def get_saved_events() -> list:
 
 def put_events(events) -> None:
     """
-    put items into specified DynamoDB table.
+    put items into DynamoDB table.
     """
     table = _get_table()
 
@@ -60,6 +60,9 @@ def put_events(events) -> None:
 
 
 def delete_events(events) -> None:
+    """
+    delete items from DynamoDB table.
+    """
     table = _get_table()
 
     for event in events:
