@@ -1,9 +1,8 @@
-import json
 import os
 
 import requests
+import message
 import log
-from constants import countries
 
 logger = log.getLogger()
 
@@ -12,42 +11,23 @@ def send(event) -> None:
     """
     assemble message body and send to webhook.
     """
+    webhook_destination = os.environ["WEBHOOK_DESTINATION"]
     webhook_url = os.environ["WEBHOOK_URL"]
 
-    # region emoji
-    if event["eventCountryFlag"] == "un":
-        region_emoji = ":united_nations:"
-    else:
-        region_emoji = ":flag_{}:".format(event["eventCountryFlag"])
-
-    # assemble webhook data
-    data = json.dumps(
-        {
-            "embeds": [
-                {
-                    "title": event["eventName"],
-                    "url": event["eventUrl"],
-                    "color": 394046,
-                    "footer": {"text": "new event on vlr.gg"},
-                    "thumbnail": {"url": event["eventLogoUrl"]},
-                    "fields": [
-                        {
-                            "name": ":earth_americas: REGION",
-                            "value": "{} {}".format(
-                                region_emoji, countries[event["eventCountryFlag"]]
-                            ),
-                            "inline": True,
-                        },
-                        {
-                            "name": ":calendar: DATES",
-                            "value": event["dates"],
-                            "inline": True,
-                        },
-                    ],
-                }
-            ],
-        }
-    )
+    try:
+        if webhook_destination == "Discord":
+            data = message.format_discord(event)
+        elif webhook_destination == "Slack":
+            data = message.format_slack(event)
+        else:
+            msg = "webhook_destination: {} is invalid. 'Discord' or 'Slack' allowed".format(
+                webhook_destination
+            )
+            logger.error(msg)
+            raise ValueError(msg)
+    except:
+        logger.error("Couldn't assemble message (id {})".format(event["id"]))
+        raise
 
     # execute webhook
     try:

@@ -67,6 +67,7 @@ def delete_events(events) -> None:
 
     for event in events:
         try:
+            logger.info("delete event info from the table: {}".format(event))
             table.delete_item(Key={"id": event["id"]})
         except botocore.exceptions.ClientError as err:
             logger.error(

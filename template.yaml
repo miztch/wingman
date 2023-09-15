@@ -7,6 +7,13 @@ Parameters:
     Description: schedule expression for the eventbridge event
     Type: String
     Default: rate(12 hours)
+  WebhookDestination:
+    Description: webhook destination. Discord or Slack
+    Type: String
+    AllowedValues:
+      - Discord
+      - Slack
+    Default: Discord
   WebhookUrl:
     Description: webhook endpoint url for notification
     Type: String
@@ -52,6 +59,7 @@ Resources:
       Environment:
         Variables:
           VLR_EVENTS_TABLE: !Ref VlrEventsTable
+          WEBHOOK_DESTINATION: !Ref WebhookDestination
           WEBHOOK_URL: !Ref WebhookUrl
       Layers:
         - !Ref RequestsLayer
