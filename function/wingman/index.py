@@ -28,4 +28,8 @@ def lambda_handler(event, context) -> None:
     # notify to channel if new event
     for vlr_event in vlr_events["upcoming"]:
         if vlr_event["id"] not in [saved_event["id"] for saved_event in saved_events]:
-            notify.send(vlr_event)
+            try:
+                notify.send(vlr_event)
+            except:
+                # rollback if notifying fails
+                database.delete_events([vlr_event])
