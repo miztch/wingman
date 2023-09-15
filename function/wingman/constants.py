@@ -9,7 +9,7 @@ countries = {
     "ch": "Switzerland",
     "cl": "Chile",
     "cn": "China",
-    "co": "Colombia"
+    "co": "Colombia",
     "cz": "Czech Republic",
     "de": "Germany",
     "dk": "Denmark",
