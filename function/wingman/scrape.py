@@ -1,5 +1,5 @@
-import log
 import requests
+import log
 from selectolax.parser import HTMLParser
 
 logger = log.getLogger()

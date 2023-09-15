@@ -1,8 +1,8 @@
 import json
 import os
 
-import log
 import requests
+import log
 from constants import countries
 
 logger = log.getLogger()

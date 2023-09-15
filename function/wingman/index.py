@@ -1,7 +1,8 @@
+import requests
+
 import database
 import log
 import notify
-import requests
 import scrape
 
 
