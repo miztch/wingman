@@ -6,7 +6,7 @@ Parameters:
   ScheduleExpression:
     Description: schedule expression for the eventbridge event
     Type: String
-    Default: rate(1 day)
+    Default: rate(12 hours)
   WebhookUrl:
     Description: webhook endpoint url for notification
     Type: String
