@@ -42,6 +42,8 @@ def events() -> dict:
         event_id = int(event_url_path.split("/")[2])
 
         event_logo_path = item.css_first(".event-item-thumb img").attributes["src"]
+        if event_logo_path == "/img/vlr/tmp/vlr.png":
+            event_logo_path = "vlr.gg" + event_logo_path
         event_logo_path = re.sub(r"^/+", "", event_logo_path)
         event_logo_url = "https://{}".format(event_logo_path)
 
