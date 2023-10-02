@@ -1,3 +1,4 @@
+import re
 import requests
 import log
 from selectolax.parser import HTMLParser
