@@ -36,7 +36,7 @@ def format_slack(event) -> str:
                         {
                             "type": "mrkdwn",
                             "text": ":alarm_clock: *STATUS*\n {}".format(
-                                event["eventStatus"]
+                                event["eventStatus"].capitalize()
                             ),
                         },
                         {
@@ -83,7 +83,7 @@ def format_discord(event) -> str:
                     "fields": [
                         {
                             "name": ":alarm_clock: STATUS",
-                            "value": event["eventStatus"],
+                            "value": event["eventStatus"].capitalize(),
                             "inline": True,
                         },
                         {
