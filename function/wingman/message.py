@@ -35,13 +35,19 @@ def format_slack(event) -> str:
                     "fields": [
                         {
                             "type": "mrkdwn",
-                            "text": ":world_map: *REGION*\n {} {}".format(
-                                region_emoji, countries[event["eventCountryFlag"]]
+                            "text": ":alarm_clock: *STATUS*\n {}".format(
+                                event["eventStatus"]
                             ),
                         },
                         {
                             "type": "mrkdwn",
                             "text": ":calendar: *DATES*\n {}".format(event["dates"]),
+                        },
+                        {
+                            "type": "mrkdwn",
+                            "text": ":world_map: *REGION*\n {} {}".format(
+                                region_emoji, countries[event["eventCountryFlag"]]
+                            ),
                         },
                     ],
                     "accessory": {
@@ -76,15 +82,20 @@ def format_discord(event) -> str:
                     "thumbnail": {"url": event["eventLogoUrl"]},
                     "fields": [
                         {
-                            "name": ":earth_americas: REGION",
-                            "value": "{} {}".format(
-                                region_emoji, countries[event["eventCountryFlag"]]
-                            ),
+                            "name": ":alarm_clock: STATUS",
+                            "value": event["eventStatus"],
                             "inline": True,
                         },
                         {
                             "name": ":calendar: DATES",
                             "value": event["dates"],
+                            "inline": True,
+                        },
+                        {
+                            "name": ":earth_americas: REGION",
+                            "value": "{} {}".format(
+                                region_emoji, countries[event["eventCountryFlag"]]
+                            ),
                             "inline": True,
                         },
                     ],
