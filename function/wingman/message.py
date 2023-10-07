@@ -35,6 +35,12 @@ def format_slack(event) -> str:
                     "fields": [
                         {
                             "type": "mrkdwn",
+                            "text": ":alarm_clock: *STATUS*\n {}".format(
+                                event["eventStatus"]
+                            ),
+                        },
+                        {
+                            "type": "mrkdwn",
                             "text": ":world_map: *REGION*\n {} {}".format(
                                 region_emoji, countries[event["eventCountryFlag"]]
                             ),
@@ -75,6 +81,11 @@ def format_discord(event) -> str:
                     "footer": {"text": "new event on vlr.gg"},
                     "thumbnail": {"url": event["eventLogoUrl"]},
                     "fields": [
+                        {
+                            "name": ":alarm_clock: STATUS",
+                            "value": event["eventStatus"],
+                            "inline": True,
+                        },
                         {
                             "name": ":earth_americas: REGION",
                             "value": "{} {}".format(
