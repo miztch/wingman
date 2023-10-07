@@ -16,7 +16,7 @@ countries = {
     "dk": "Denmark",
     "ee": "Estonia",
     "eg": "Egypt",
-    "es": "Estonia",
+    "es": "Spain",
     "fi": "Finland",
     "fr": "France",
     "gb": "United Kingdom",
