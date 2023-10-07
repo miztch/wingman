@@ -3,6 +3,7 @@ countries = {
     "au": "Australia",
     "at": "Austria",
     "ba": "Bosnia and Herzegovina",
+    "bd": "Bangladesh",
     "be": "Belgium",
     "br": "Brazil",
     "ca": "Canada",
