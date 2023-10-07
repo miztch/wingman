@@ -41,13 +41,13 @@ def format_slack(event) -> str:
                         },
                         {
                             "type": "mrkdwn",
-                            "text": ":world_map: *REGION*\n {} {}".format(
-                                region_emoji, countries[event["eventCountryFlag"]]
-                            ),
+                            "text": ":calendar: *DATES*\n {}".format(event["dates"]),
                         },
                         {
                             "type": "mrkdwn",
-                            "text": ":calendar: *DATES*\n {}".format(event["dates"]),
+                            "text": ":world_map: *REGION*\n {} {}".format(
+                                region_emoji, countries[event["eventCountryFlag"]]
+                            ),
                         },
                     ],
                     "accessory": {
@@ -87,15 +87,15 @@ def format_discord(event) -> str:
                             "inline": True,
                         },
                         {
+                            "name": ":calendar: DATES",
+                            "value": event["dates"],
+                            "inline": True,
+                        },
+                        {
                             "name": ":earth_americas: REGION",
                             "value": "{} {}".format(
                                 region_emoji, countries[event["eventCountryFlag"]]
                             ),
-                            "inline": True,
-                        },
-                        {
-                            "name": ":calendar: DATES",
-                            "value": event["dates"],
                             "inline": True,
                         },
                     ],
