@@ -1,5 +1,4 @@
 import json
-import os
 
 import log
 from constants import countries

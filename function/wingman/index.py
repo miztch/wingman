@@ -1,5 +1,3 @@
-import requests
-
 import database
 import log
 import notify
