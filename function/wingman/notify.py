@@ -16,9 +16,9 @@ def send(event) -> None:
 
     try:
         if webhook_destination == "Discord":
-            data = message.format_discord(event)
+            payload = message.format_discord(event)
         elif webhook_destination == "Slack":
-            data = message.format_slack(event)
+            payload = message.format_slack(event)
         else:
             msg_invalid_dest = f"webhook_destination: {webhook_destination} is invalid. 'Discord' or 'Slack' allowed"
             logger.error(msg_invalid_dest)
@@ -30,7 +30,9 @@ def send(event) -> None:
     # execute webhook
     try:
         response = requests.post(
-            webhook_url, json.dumps(data), headers={"Content-Type": "application/json"}
+            webhook_url,
+            json.dumps(payload),
+            headers={"Content-Type": "application/json"},
         )
         logger.info(
             "executed webhook (id %s). Status: %s", event["id"], response.status_code

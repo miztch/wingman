@@ -9,7 +9,7 @@ logger = log.getLogger()
 def format_slack(event) -> dict:
     region_emoji = f":flag-{event['eventCountryFlag']}:"
 
-    data = {
+    payload = {
         "blocks": [
             {
                 "type": "header",
@@ -51,7 +51,7 @@ def format_slack(event) -> dict:
         ]
     }
 
-    return data
+    return paylaod
 
 
 def format_discord(event) -> dict:
@@ -61,8 +61,7 @@ def format_discord(event) -> dict:
     else:
         region_emoji = f":flag_{event['eventCountryFlag']}:"
 
-    # assemble webhook data
-    data = {
+    payload = {
         "embeds": [
             {
                 "title": event["eventName"],
@@ -91,4 +90,4 @@ def format_discord(event) -> dict:
         ],
     }
 
-    return data
+    return payload
