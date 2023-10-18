@@ -51,7 +51,7 @@ def format_slack(event) -> dict:
         ]
     }
 
-    return paylaod
+    return payload
 
 
 def format_discord(event) -> dict:
