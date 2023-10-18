@@ -32,15 +32,15 @@ def format_slack(event) -> str:
                     "fields": [
                         {
                             "type": "mrkdwn",
-                            "text": f":alarm_clock: *STATUS*\n {event['eventStatus'].capitalize()}",
+                            "text": f":alarm_clock: *STATUS*\n{event['eventStatus'].capitalize()}",
                         },
                         {
                             "type": "mrkdwn",
-                            "text": f":calendar: *DATES*\n {event['dates']}",
+                            "text": f":calendar: *DATES*\n{event['dates']}",
                         },
                         {
                             "type": "mrkdwn",
-                            "text": f":world_map: *REGION*\n {region_emoji} {countries[event['eventCountryFlag']]}",
+                            "text": f":world_map: *REGION*\n{region_emoji} {countries[event['eventCountryFlag']]}",
                         },
                     ],
                     "accessory": {
