@@ -20,13 +20,11 @@ def send(event) -> None:
         elif webhook_destination == "Slack":
             data = message.format_slack(event)
         else:
-            msg = "webhook_destination: {} is invalid. 'Discord' or 'Slack' allowed".format(
-                webhook_destination
-            )
+            msg = f"webhook_destination: {webhook_destination} is invalid. 'Discord' or 'Slack' allowed"
             logger.error(msg)
             raise ValueError(msg)
     except:
-        logger.error("Couldn't assemble message (id {})".format(event["id"]))
+        logger.error(f"Could not assemble message (id {event['id']})")
         raise
 
     # execute webhook
@@ -35,15 +33,11 @@ def send(event) -> None:
             webhook_url, data, headers={"Content-Type": "application/json"}
         )
         logger.info(
-            "executed webhook (id {}). Status: {}".format(
-                event["id"], response.status_code
-            )
+            f"executed webhook (id {event['id']}). Status: {response.status_code}"
         )
         response.raise_for_status()
     except requests.exceptions.RequestException as err:
         logger.error(
-            "Couldn't execute webhook (id {}). Here's why: {}".format(
-                event["id"], err.response.text
-            )
+            f"Couldn't execute webhook (id {event['id']}). Here's why: {err.response.text}"
         )
         raise

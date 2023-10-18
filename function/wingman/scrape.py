@@ -12,7 +12,7 @@ def events() -> dict:
     """
 
     url = "https://www.vlr.gg/events"
-    logger.info("fetch upcoming events list from: {}".format(url))
+    logger.info(f"fetch upcoming events list from: {url}")
 
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0",
@@ -37,7 +37,7 @@ def events() -> dict:
         country_flag = country_flag.replace(" mod-", "_").replace("flag_", "")
 
         event_url_path = item.attributes["href"]
-        event_url = "https://vlr.gg{}".format(event_url_path)
+        event_url = f"https://vlr.gg{event_url_path}"
 
         event_id = int(event_url_path.split("/")[2])
 
@@ -45,7 +45,7 @@ def events() -> dict:
         if event_logo_path == "/img/vlr/tmp/vlr.png":
             event_logo_path = "vlr.gg" + event_logo_path
         event_logo_path = re.sub(r"^/+", "", event_logo_path)
-        event_logo_url = "https://{}".format(event_logo_path)
+        event_logo_url = f"https://{event_logo_path}"
 
         item = {
             "id": event_id,

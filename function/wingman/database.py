@@ -25,12 +25,10 @@ def get_saved_events() -> list:
         logger.info("Scan table")
         response = table.scan()
         saved_events = response["Items"]
-        logger.info("Found {} items.".format(len(saved_events)))
+        logger.info(f"Found {len(saved_events)} items.")
     except botocore.exceptions.ClientError as err:
         logger.error(
-            "Couldn't scan events. Here's why: {}: {}".format(
-                err.response["Error"]["Code"], err.response["Error"]["Message"]
-            )
+            f"Couldn't scan events. Here's why: {err.response["Error"]["Code"]}: {err.response["Error"]["Message"]}"
         )
         raise
 
@@ -46,16 +44,10 @@ def put_events(events) -> None:
     with table.batch_writer() as batch:
         for event in events:
             try:
-                logger.info("put event info into the table: {}".format(event))
+                logger.info(f"put event info into the table: {event}")
                 batch.put_item({k: v for k, v in event.items()})
             except botocore.exceptions.ClientError as err:
-                logger.error(
-                    "Couldn't add event {}. Here's why: {}: {}".format(
-                        event["id"],
-                        err.response["Error"]["Code"],
-                        err.response["Error"]["Message"],
-                    )
-                )
+                logger.error(f"Couldn't add event {event["id"]}. Here's why: {err.response["Error"]["Code"]}: {err.response["Error"]["Message"]}")
                 raise
 
 
@@ -67,14 +59,8 @@ def delete_events(events) -> None:
 
     for event in events:
         try:
-            logger.info("delete event info from the table: {}".format(event))
+            logger.info(f"delete event info from the table: {event}")
             table.delete_item(Key={"id": event["id"]})
         except botocore.exceptions.ClientError as err:
-            logger.error(
-                "Couldn't delete event {}. Here's why: {}: {}".format(
-                    event["id"],
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"],
-                )
-            )
+            logger.error(f"Couldn't delete event {event["id"]}. Here's why: {err.response["Error"]["Code"]}: {err.response["Error"]["Message"]}")
             raise

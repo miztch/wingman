@@ -7,7 +7,7 @@ logger = log.getLogger()
 
 
 def format_slack(event) -> str:
-    region_emoji = ":flag-{}:".format(event["eventCountryFlag"])
+    region_emoji = f":flag-{event['eventCountryFlag']}:"
 
     data = json.dumps(
         {
@@ -24,9 +24,7 @@ def format_slack(event) -> str:
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "*<{}|{}>*".format(
-                            event["eventUrl"], event["eventName"]
-                        ),
+                        "text": f"*<{event['eventUrl']}|{event['eventName']}>*",
                     },
                 },
                 {
@@ -34,19 +32,15 @@ def format_slack(event) -> str:
                     "fields": [
                         {
                             "type": "mrkdwn",
-                            "text": ":alarm_clock: *STATUS*\n {}".format(
-                                event["eventStatus"].capitalize()
-                            ),
+                            "text": f":alarm_clock: *STATUS*\n {event['eventStatus'].capitalize()}",
                         },
                         {
                             "type": "mrkdwn",
-                            "text": ":calendar: *DATES*\n {}".format(event["dates"]),
+                            "text": f":calendar: *DATES*\n {event['dates']}",
                         },
                         {
                             "type": "mrkdwn",
-                            "text": ":world_map: *REGION*\n {} {}".format(
-                                region_emoji, countries[event["eventCountryFlag"]]
-                            ),
+                            "text": f":world_map: *REGION*\n {region_emoji} {countries[event['eventCountryFlag']]}",
                         },
                     ],
                     "accessory": {
@@ -67,7 +61,7 @@ def format_discord(event) -> str:
     if event["eventCountryFlag"] == "un":
         region_emoji = ":united_nations:"
     else:
-        region_emoji = ":flag_{}:".format(event["eventCountryFlag"])
+        region_emoji = f":flag_{event['eventCountryFlag']}:"
 
     # assemble webhook data
     data = json.dumps(
@@ -92,9 +86,7 @@ def format_discord(event) -> str:
                         },
                         {
                             "name": ":earth_americas: REGION",
-                            "value": "{} {}".format(
-                                region_emoji, countries[event["eventCountryFlag"]]
-                            ),
+                            "value": f"{region_emoji} {countries[event['eventCountryFlag']]}",
                             "inline": True,
                         },
                     ],
