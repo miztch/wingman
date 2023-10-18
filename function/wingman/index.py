@@ -28,6 +28,11 @@ def lambda_handler(event, context) -> None:
         if vlr_event["id"] not in [saved_event["id"] for saved_event in saved_events]:
             try:
                 notify.send(vlr_event)
-            except:
+            except Exception as err:
                 # rollback if notifying fails
+                logger.error(
+                    "Excecuting webhook failed (id: %s), rollback. Error: %s",
+                    vlr_event["id"],
+                    err,
+                )
                 database.delete_events([vlr_event])

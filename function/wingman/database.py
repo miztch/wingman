@@ -25,10 +25,12 @@ def get_saved_events() -> list:
         logger.info("Scan table")
         response = table.scan()
         saved_events = response["Items"]
-        logger.info(f"Found {len(saved_events)} items.")
+        logger.info("Found %s items.", len(saved_events))
     except botocore.exceptions.ClientError as err:
         logger.error(
-            f"Couldn't scan events. Here's why: {err.response['Error']['Code']}: {err.response['Error']['Message']}"
+            "Could not scan events. Here's why: %s: %s",
+            err.response["Error"]["Code"],
+            err.response["Error"]["Message"],
         )
         raise
 
@@ -44,11 +46,14 @@ def put_events(events) -> None:
     with table.batch_writer() as batch:
         for event in events:
             try:
-                logger.info(f"put event info into the table: {event}")
+                logger.info("put event info into the table: %s", event)
                 batch.put_item({k: v for k, v in event.items()})
             except botocore.exceptions.ClientError as err:
                 logger.error(
-                    f"Couldn't add event {event['id']}. Here's why: {err.response['Error']['Code']}: {err.response['Error']['Message']}"
+                    "Could not add event %s. Here's why: %s: %s",
+                    event["id"],
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
                 )
                 raise
 
@@ -61,10 +66,13 @@ def delete_events(events) -> None:
 
     for event in events:
         try:
-            logger.info(f"delete event info from the table: {event}")
+            logger.info("delete event info from the table: %s", event)
             table.delete_item(Key={"id": event["id"]})
         except botocore.exceptions.ClientError as err:
             logger.error(
-                f"Couldn't delete event {event['id']}. Here's why: {err.response['Error']['Code']}: {err.response['Error']['Message']}"
+                "Could not delete event %s. Here's why: %s: %s",
+                event["id"],
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
             )
             raise
