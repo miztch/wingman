@@ -30,7 +30,7 @@ def send(event) -> None:
     # execute webhook
     try:
         response = requests.post(
-            webhook_url, data, headers={"Content-Type": "application/json"}
+            webhook_url, json.dumps(data), headers={"Content-Type": "application/json"}
         )
         logger.info(
             "executed webhook (id %s). Status: %s", event["id"], response.status_code
