@@ -45,3 +45,10 @@ def send(event) -> None:
             err.response.text,
         )
         raise
+    except Exception as err:
+        logger.error(
+            "Couldn't execute webhook (id: %s). Here's why: %s",
+            event["id"],
+            err,
+        )
+        raise
