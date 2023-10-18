@@ -28,7 +28,7 @@ def get_saved_events() -> list:
         logger.info("Found %s items.", len(saved_events))
     except botocore.exceptions.ClientError as err:
         logger.error(
-            "Couldn't scan events. Here's why: %s: %s",
+            "Could not scan events. Here's why: %s: %s",
             err.response["Error"]["Code"],
             err.response["Error"]["Message"],
         )
@@ -50,7 +50,7 @@ def put_events(events) -> None:
                 batch.put_item({k: v for k, v in event.items()})
             except botocore.exceptions.ClientError as err:
                 logger.error(
-                    "Couldn't add event %s. Here's why: %s: %s",
+                    "Could not add event %s. Here's why: %s: %s",
                     event["id"],
                     err.response["Error"]["Code"],
                     err.response["Error"]["Message"],
@@ -70,7 +70,7 @@ def delete_events(events) -> None:
             table.delete_item(Key={"id": event["id"]})
         except botocore.exceptions.ClientError as err:
             logger.error(
-                "Couldn't delete event %s. Here's why: %s: %s",
+                "Could not delete event %s. Here's why: %s: %s",
                 event["id"],
                 err.response["Error"]["Code"],
                 err.response["Error"]["Message"],
