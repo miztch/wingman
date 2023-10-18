@@ -1,5 +1,3 @@
-import json
-
 import log
 from constants import countries
 
