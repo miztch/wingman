@@ -5,7 +5,7 @@ import scrape
 
 
 def lambda_handler(event, context) -> None:
-    logger = log.getLogger()
+    logger = log.get_logger()
 
     # get events from vlr.gg
     vlr_events = scrape.events()

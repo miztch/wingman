@@ -3,7 +3,7 @@ import requests
 import log
 from selectolax.parser import HTMLParser
 
-logger = log.getLogger()
+logger = log.get_logger()
 
 
 def events() -> dict:

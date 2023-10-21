@@ -5,7 +5,7 @@ import botocore
 import log
 from boto3.dynamodb.conditions import Key
 
-logger = log.getLogger()
+logger = log.get_logger()
 
 
 def _get_table():

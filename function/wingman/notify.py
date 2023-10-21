@@ -4,7 +4,7 @@ import requests
 import message
 import log
 
-logger = log.getLogger()
+logger = log.get_logger()
 
 
 def send(event) -> None:

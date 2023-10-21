@@ -1,11 +1,11 @@
 import logging
 
 
-def getLogger():
+def get_logger():
     """
     init logger.
     """
-    logger = logging.getLogger()
+    logger = logging.get_logger()
     logger.setLevel(logging.INFO)
 
     return logger

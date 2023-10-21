@@ -1,7 +1,7 @@
 import log
 from constants import countries
 
-logger = log.getLogger()
+logger = log.get_logger()
 
 
 def format_slack(event) -> dict:
