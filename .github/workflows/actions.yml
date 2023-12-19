@@ -16,12 +16,12 @@ jobs:
         uses: actions/setup-python@v5
       - name: Setup AWS SAM CLI
         uses: aws-actions/setup-sam@v2
-      - name: Setup AWS credentials
+      - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4.0.1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: true
       - name: Prepare SAM parameters
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
