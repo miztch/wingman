@@ -39,6 +39,7 @@ countries = {
     "ma": "Morocco",
     "me": "Montenegro",
     "mk": "Republic of North Macedonia",
+    "mn": "Mongolia",
     "my": "Malaysia",
     "mx": "Mexico",
     "no": "Norway",
