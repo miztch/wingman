@@ -41,6 +41,7 @@ countries = {
     "mk": "Republic of North Macedonia",
     "mn": "Mongolia",
     "my": "Malaysia",
+    "mv": "Maldives",
     "mx": "Mexico",
     "no": "Norway",
     "pe": "Peru",
