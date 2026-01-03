@@ -1,2 +1,1 @@
-Cython==0.29.34
-selectolax==0.3.13
+selectolax==0.4.6
