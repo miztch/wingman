@@ -29,9 +29,9 @@ Resources:
       LayerName: wingman-requests
       ContentUri: layer/requests/
       CompatibleRuntimes:
-        - python3.11
+        - python3.14
     Metadata:
-      BuildMethod: python3.11
+      BuildMethod: python3.14
 
   SelectolaxLayer:
     Type: AWS::Serverless::LayerVersion
@@ -39,9 +39,9 @@ Resources:
       LayerName: wingman-selectolax
       ContentUri: layer/selectolax/
       CompatibleRuntimes:
-        - python3.11
+        - python3.14
     Metadata:
-      BuildMethod: python3.11
+      BuildMethod: python3.14
 
   WingmanFunction:
     Type: AWS::Serverless::Function
@@ -49,7 +49,7 @@ Resources:
       CodeUri: function/wingman/
       Description: "scrape vlr.gg upcoming matches"
       Handler: index.lambda_handler
-      Runtime: python3.11
+      Runtime: python3.14
       Architectures:
         - x86_64
       MemorySize: 128

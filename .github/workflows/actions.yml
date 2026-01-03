@@ -17,15 +17,13 @@ jobs:
     environment: production
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
-      - name: Setup AWS SAM CLI
-        uses: aws-actions/setup-sam@v2
+        uses: actions/checkout@v6
+      - name: Install dependencies with Mise
+        uses: jdx/mise-action@v3
         with:
-          use-installer: true
+          cache: true
       - name: Setup AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4.0.2
+        uses: aws-actions/configure-aws-credentials@v5.1.1
         with:
           role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
