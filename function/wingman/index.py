@@ -13,8 +13,8 @@ def lambda_handler(event, context) -> None:
     # get events from DynamoDB table
     saved_events = database.get_saved_events()
 
-    # update DynamoDB table with events "upcoming" or "ongoing"
-    database.put_events(vlr_events["upcoming"] + vlr_events["ongoing"])
+    # update DynamoDB table with events "upcoming", "ongoing", or "paused"
+    database.put_events(vlr_events["upcoming"] + vlr_events["ongoing"] + vlr_events["paused"])
 
     # delete "completed" events if in DynamoDB table
     events_delete: list = []
