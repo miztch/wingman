@@ -4,6 +4,13 @@ from constants import countries
 logger = log.get_logger()
 
 
+def country_name(code: str) -> str:
+    # fall back to the raw code so unknown countries don't break notifications
+    if code not in countries:
+        logger.warning("Unknown country code: %s", code)
+    return countries.get(code, code.upper())
+
+
 def format_slack(event) -> dict:
     region_emoji = f":flag-{event['eventCountryFlag']}:"
 
@@ -37,7 +44,7 @@ def format_slack(event) -> dict:
                     },
                     {
                         "type": "mrkdwn",
-                        "text": f":world_map: *REGION*\n{region_emoji} {countries[event['eventCountryFlag']]}",
+                        "text": f":world_map: *REGION*\n{region_emoji} {country_name(event['eventCountryFlag'])}",
                     },
                 ],
                 "accessory": {
@@ -80,7 +87,7 @@ def format_discord(event) -> dict:
                     },
                     {
                         "name": ":earth_americas: REGION",
-                        "value": f"{region_emoji} {countries[event['eventCountryFlag']]}",
+                        "value": f"{region_emoji} {country_name(event['eventCountryFlag'])}",
                         "inline": True,
                     },
                 ],
