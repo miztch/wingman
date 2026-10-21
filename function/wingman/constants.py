@@ -14,6 +14,7 @@ countries = {
     "cz": "Czech Republic",
     "de": "Germany",
     "dk": "Denmark",
+    "dz": "Algeria",
     "ee": "Estonia",
     "eg": "Egypt",
     "es": "Spain",
